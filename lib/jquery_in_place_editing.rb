@@ -40,7 +40,7 @@ module JqueryInPlaceEditing
           end
         else
           render :update do |page|
-            page.alert(@item.errors.full_messages.join("\n"))
+            page.alert("Error: "+ @item.errors.full_messages.join("\n"))
             klass.query_cache.clear_query_cache if klass.method_defined?:query_cache
             @item.reload
             page.replace_html("#{object}_#{attribute}_#{params[:id]}_in_place_editor", 

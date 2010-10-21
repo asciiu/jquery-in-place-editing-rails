@@ -32,25 +32,49 @@ jQuery.fn.in_place_editing = function(options) {
 	});
 	
 	$("span.editable_content").blur(function() {
-		editing = false;
 		this.setAttribute("contentEditable",false);
-		this.innerHTML = originalText;
+		
+		// we were editing while the element lost focus
+		if(editing) {
+		  // return content to original
+		  this.innerHTML = originalText;
+		  // reset editing flag
+		  editing = false;
+		} 
 	});
 	
-	$("span.editable_content").keydown(function(event) {
-		if(event.keyCode == 13) {		
-			if(this.innerHTML != '') 
-			  originalText = this.innerHTML;
-
-			this.blur();
+	$("span.editable_content").keypress(function(event) {
+		if(event.keyCode == 13) {			
+			// if the value in this field was erased and the text is now blank
+			if(this.innerHTML == '' || this.innerHTML == '<br>') {
+				// return the field back to it's original value
+				this.blur();
+				return;
+			}
+			  
+			// exit editing mode
+			editing = false;
+			
+			// keep track of which element is in focus so 
+			// we can change the inner html later 
+			var element = this;
 			
 			// things you'll need:
-			// 1. value = this is the originalText
+			// 1. value = this is the new value
 			// 2. what controller
 			// 3. the id of the object being modified
 			// 4. the attribute that is being modified
 			// perhaps these can be set as the id from within rails?
-			$.post(this.parentNode.id, {value:originalText});	    
+			$.post(this.parentNode.id, {value:element.innerHTML}, function(data) {				
+				if(data.search("Error") != -1) {
+				  // display the error
+				  eval(data);
+				  // restore original text value
+				  element.innerHTML = originalText;
+				}
+			});
+
+			this.blur();   
 		}
 	});
 }

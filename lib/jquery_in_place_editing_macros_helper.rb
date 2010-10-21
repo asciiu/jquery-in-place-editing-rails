@@ -1,4 +1,11 @@
 module JqueryInPlaceEditingMacrosHelper
+  # Controller
+  #   class SomeController < ApplicationController
+  #     in_place_edit_with_validation_for :model, :attribute
+  #   end
+  #
+  #   # View
+  #   <%= jquery_in_place_editor_field :model, 'the attribute here' %>
   def jquery_in_place_editor_field(object,method)
     instance_tag = ::ActionView::Helpers::InstanceTag.new(object, method, self)
     klass = object.to_s.camelize.constantize
