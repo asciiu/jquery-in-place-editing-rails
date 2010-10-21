@@ -1,4 +1,4 @@
-module JqueryInPlaceMacrosHelper
+module JqueryInPlaceEditingMacrosHelper
   def jquery_in_place_editor_field(object,method)
     instance_tag = ::ActionView::Helpers::InstanceTag.new(object, method, self)
     klass = object.to_s.camelize.constantize
