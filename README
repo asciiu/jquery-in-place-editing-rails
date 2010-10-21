@@ -1,13 +1,49 @@
 JqueryInPlaceEditing
 ====================
 
-Introduction goes here.
+JQuery style in place editing plugin for rails. This plugin requires jrails so you'll need to install jrails as a separate plugin. Aside from creating the usual plugin directory for this plugin you'll also notice that the install will copy jquery.in_place_editing.js to your javascripts folder. 
 
 
-Example
+How to use
 =======
+Step 1: Include the following javascript tags within your layout(s).
 
-Example goes here.
+<%= javascript_include_tag 'jquery' %>
+<%= javascript_include_tag 'jquery.in_place_editing' %> 
+<%= javascript_include_tag 'application' %>
+
+Step 2: Add the following to 'application.js':
+
+$(document).ready(function() {
+    $(".editable").in_place_editing();
+});
+
+Step 3: Add the following statement to the controllers that you intend to use the plugin with.
+
+in_place_edit_with_validation_for :object, :attribute
+
+...where object is the name of the model object of the controller and attribute is the name of the attribute that will be editable from the view.
+
+  example controller: 
+  	class PeopleController < ApplicationController
+    	in_place_edit_with_validation_for :person, :age
+    	in_place_edit_with_validation_for :person, :name
+    	...
+    	...
+  	end
+
+	In the example above I'm indicating that the 'age' and 'name' attribute of the 'person' object is editable.
 
 
-Copyright (c) 2010 [name of plugin creator], released under the MIT license
+Step 4: Modify your view.
+
+	example 'views/people/index.html.erb': 
+	  <% @people.each do |person| %>
+	    <tr>
+		  <% @person = person %>
+		  <td><%= jquery_in_place_editor_field :person, 'name' %></td>
+		</tr>
+	  <% end -%>
+		
+
+Copyright (c) 2010 'asciiu' released under the MIT license
