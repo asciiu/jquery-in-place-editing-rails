@@ -6,12 +6,15 @@ module JqueryInPlaceEditingMacrosHelper
   #
   #   # View
   #   <%= jquery_in_place_editor_field :model, 'the attribute here' %>
-  def jquery_in_place_editor_field(object,method)
+  def jquery_in_place_editor_field(object,method,options = {})
     instance_tag = ::ActionView::Helpers::InstanceTag.new(object, method, self)
     klass = object.to_s.camelize.constantize
     object_id = instance_tag.object.id
     
-    url = url_for({:action => "set_#{object}_#{method}", :id => object_id})
+    # controller name will default to the controller_name of the current view
+    # if the option was not specified
+    controller = options[:controller] || @controller.controller_name
+    url = url_for({:controller => controller, :action => "set_#{object}_#{method}", :id => object_id})
     item = klass.find(object_id)
     
     # this wraps the editable content within a span 
