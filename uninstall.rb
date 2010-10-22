@@ -7,4 +7,9 @@ dir = "javascripts"
 	# remove the file
 	FileUtils.rm_rf(src_file)
 end
+
+# remove the example image
+img_file = File.join(RAILS_ROOT, "public", "images", "leaf.png")
+FileUtils.rm_rf(img_file)
+
 puts "Files removed - Uninstallation complete!"
