@@ -1,7 +1,7 @@
 jQuery.fn.in_place_editing = function(options) {
 		
 	var settings = {
-		handleImage: "images/leaf.png",
+		handleImage: "/images/leaf.png",
 		handleWidth: "15px",
 		handleHeight: "15px",
 	};
