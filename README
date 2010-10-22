@@ -32,7 +32,7 @@ in_place_edit_with_validation_for :object, :attribute
     	...
   	end
 
-	In the example above I'm indicating that the 'age' and 'name' attribute of the 'person' object is editable.
+In the example above I'm indicating that the 'age' and 'name' attribute of the 'person' object is editable.
 
 
 Step 4: Modify your view.
@@ -45,7 +45,6 @@ Step 4: Modify your view.
 		</tr>
 	  <% end -%>
 		
-	  In the example above, the explicit option controller may be omitted if the controller responsible for updating the attribute
-	  is the same controller that the view belongs to. For the example above, the default controller would be 'people'. 	
+In the example above, the explicit option controller may be omitted if the controller responsible for updating the attribute is the same controller that the view belongs to. For the example above, the default controller would be 'people'. 	
 
 Copyright (c) 2010 'asciiu' released under the MIT license
